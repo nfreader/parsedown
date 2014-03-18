@@ -38,6 +38,8 @@ class Parsedown
         return $this;
     }
     
+    # Enables displaying images in an <img> tag. Defaults to true.
+    
     function displayImages($displayImages)
     {
         $this->displayImages = $displayImages;
@@ -1081,27 +1083,27 @@ class Parsedown
 
                         if ($element['!'])
                         {   
-                        	if ($this->displayImages === true) {
+                            if ($this->displayImages === true) {
                                 $markup .= '<img alt="'.$element['text'].'" src="'.$element['link'].'"';
-							    
+                                
                                 if (isset($element['title']))
                                 {
                                     $markup .= ' title="'.$element['title'].'"';
                                 }
-							    
+                                
                                 $markup .= ' />';
-							}
-							else
-							{
-							    $markup .= '<a href="'.$element['link'].'"';
-							    
+                            }
+                            else
+                            {
+                                $markup .= '<a href="'.$element['link'].'"';
+                            
                                 if (isset($element['title']))
                                 {
                                     $markup .= ' title="'.$element['title'].'"';
                                 }
-							    
+                                
                                 $markup .= '> External Image Link </a>';
-							}
+                            }
                         }
                         else
                         {
