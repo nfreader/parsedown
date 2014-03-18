@@ -37,6 +37,13 @@ class Parsedown
 
         return $this;
     }
+    
+    function displayImages($displayImages)
+    {
+        $this->displayImages = $displayImages;
+
+        return $this;
+    }
 
     /**
      * For backwards compatibility before PSR-2 naming.
@@ -49,6 +56,9 @@ class Parsedown
     }
 
     private $breaksEnabled = false;
+    
+    private $displayImages = true;
+    
 
     #
     # Methods
@@ -1070,15 +1080,28 @@ class Parsedown
                         $element['link'] = str_replace('<', '&lt;', $element['link']);
 
                         if ($element['!'])
-                        {
-                            $markup .= '<img alt="'.$element['text'].'" src="'.$element['link'].'"';
-
-                            if (isset($element['title']))
-                            {
-                                $markup .= ' title="'.$element['title'].'"';
-                            }
-
-                            $markup .= ' />';
+                        {   
+                        	if ($this->displayImages === true) {
+                                $markup .= '<img alt="'.$element['text'].'" src="'.$element['link'].'"';
+							    
+                                if (isset($element['title']))
+                                {
+                                    $markup .= ' title="'.$element['title'].'"';
+                                }
+							    
+                                $markup .= ' />';
+							}
+							else
+							{
+							    $markup .= '<a href="'.$element['link'].'"';
+							    
+                                if (isset($element['title']))
+                                {
+                                    $markup .= ' title="'.$element['title'].'"';
+                                }
+							    
+                                $markup .= '> External Image Link </a>';
+							}
                         }
                         else
                         {
